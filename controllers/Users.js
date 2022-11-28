@@ -15,8 +15,10 @@ export const getUsers = async (req, res) => {
 export const Register = async (req, res) => {
     const { name, surname, email, password, confirmPassword } = req.body;
     if (password !== confirmPassword) return res.status(400).json({ msg: "Password or ConfirmPassword error " });
+    if (password.minLength < 8) return res.status(400).json({ msg: "Password  error " });
     const salt = await bcrypt.genSalt();
     const hashedPassword = await bcrypt.hash(password, salt);
+      
 
     try {
         await Users.create({

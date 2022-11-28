@@ -4,6 +4,7 @@ import cors from "cors"
 import cookieParser from "cookie-parser";
 import db from "./config/Database.js";
 import router from "./routers/index.js";
+import bodyParser from "body-parser"
 
 
 dotenv.config();
@@ -19,7 +20,8 @@ try {
 
 app.use(cors({credential:true, origin:"http://localhost:3000" }))
 app.use(cookieParser());
-app.use(express.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 app.use(router);
 
 app.listen(PORT, () => {
