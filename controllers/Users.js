@@ -1,6 +1,8 @@
 import Users from "../model/UserModel.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+
+
 export const getUsers = async (req, res) => {
     try {
         const users = await Users.findAll({
@@ -15,11 +17,19 @@ export const getUsers = async (req, res) => {
 export const Register = async (req, res) => {
     const { name, surname, email, password, confirmPassword } = req.body;
     if (password !== confirmPassword) return res.status(400).json({ msg: "Password or ConfirmPassword error " });
-    if (password.minLength < 8) return res.status(400).json({ msg: "Password  error " });
     const salt = await bcrypt.genSalt();
     const hashedPassword = await bcrypt.hash(password, salt);
-      
 
+    const user = await Users.findAll({
+        where: {
+            email:email
+        },
+    })
+    console.log(user)
+  
+    if(user.length != 0 ){
+       return res.json({msg:"Email already registered"})
+    }
     try {
         await Users.create({
             name: name,
@@ -31,6 +41,7 @@ export const Register = async (req, res) => {
     } catch (error) {
         console.log(error);
     }
+    
 }
 
 export const Login = async(req,res) => {

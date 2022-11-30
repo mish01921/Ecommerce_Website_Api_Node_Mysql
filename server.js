@@ -18,6 +18,7 @@ try {
     console.error(error)
 }
 
+
 app.use(cors({credential:true, origin:"http://localhost:3000" }))
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: false }));
