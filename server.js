@@ -3,7 +3,7 @@ import dotenv from "dotenv";
 import cors from "cors"
 import cookieParser from "cookie-parser";
 import db from "./config/Database.js";
-import router from "./routers/index.js";
+import router from "./routers/AuthRouter.js";
 import bodyParser from "body-parser"
 
 
@@ -19,11 +19,12 @@ try {
 }
 
 
-app.use(cors({credential:true, origin:"http://localhost:3000" }))
+app.use(cors())
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(router);
+// app.use(express.json());
 
 app.listen(PORT, () => {
     console.log(`Server listening ${PORT}`)

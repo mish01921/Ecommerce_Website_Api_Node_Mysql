@@ -14,7 +14,7 @@ export const getUsers = async (req, res) => {
     }
 };
 
-export const Register = async (req, res) => {
+export const signupController  = async (req, res) => {
     const { name, surname, email, password, confirmPassword } = req.body;
     if (password !== confirmPassword) return res.status(400).json({ msg: "Password or ConfirmPassword error " });
     const salt = await bcrypt.genSalt();
@@ -25,11 +25,8 @@ export const Register = async (req, res) => {
             email:email
         },
     })
-    console.log(user)
-  
-    if(user.length != 0 ){
-       return res.json({msg:"Email already registered"})
-    }
+if(user.length != 0 ) return res.json({ msg:"Email already registered" })
+      
     try {
         await Users.create({
             name: name,
@@ -39,7 +36,7 @@ export const Register = async (req, res) => {
         })
         res.json({ msg: "Register successfully" })
     } catch (error) {
-        console.log(error);
+        res.json({ msg: "error" })
     }
     
 }
@@ -53,7 +50,7 @@ export const Login = async(req,res) => {
         });
 
         const match = await bcrypt.compare(req.body.password, user[0].password);
-        if(!match) return res.status(400).json({msg: "Wrong password"});
+        if(!match) return res.status(400).json({msg: "Email or Password  not found!"});
 
         const userId = user[0].id;
         const name = user[0].name;
@@ -79,7 +76,7 @@ export const Login = async(req,res) => {
         });
         res.json({ accessToken })
     } catch (error) {
-        res.status(404).json({msg: "Email not found! "})
+        res.status(404).json({msg: "Email or Password  not found! "})
     }
 }
 
