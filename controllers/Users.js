@@ -25,7 +25,7 @@ export const signupController  = async (req, res) => {
             email:email
         },
     })
-if(user.length != 0 ) return res.json({ msg:"Email already registered" })
+if(user.length != 0 ) return res.status(400).json({ msg:"Email already registered" })
       
     try {
         await Users.create({
@@ -34,13 +34,11 @@ if(user.length != 0 ) return res.json({ msg:"Email already registered" })
             email: email,
             password: hashedPassword
         })
-        res.json({ msg: "Register successfully" })
+        return res.status(201).json({ msg: "Register successfully" })
     } catch (error) {
         res.json({ msg: "error" })
     }
-    
 }
-
 export const Login = async(req,res) => {
     try {
         const user = await Users.findAll({
@@ -74,7 +72,7 @@ export const Login = async(req,res) => {
             httpOnly: true,
             maxAge: 24 * 60 * 60 * 1000
         });
-        res.json({ accessToken })
+        res.json({ name,surname,accessToken })
     } catch (error) {
         res.status(404).json({msg: "Email or Password  not found! "})
     }
