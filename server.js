@@ -4,7 +4,8 @@ import cors from "cors"
 import cookieParser from "cookie-parser";
 import db from "./config/Database.js";
 import router from "./routers/AuthRouter.js";
-import bodyParser from "body-parser"
+import ProductRouter from "./routers/ProductRouter.js";
+import bodyParser from "body-parser";
 
 
 dotenv.config();
@@ -17,14 +18,13 @@ try {
 }catch(error) {
     console.error(error)
 }
-
-
 app.use(cors())
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(router);
-// app.use(express.json());
+app.use(ProductRouter);
+app.use('/Images', express.static('Images'))
 
 app.listen(PORT, () => {
     console.log(`Server listening ${PORT}`)
