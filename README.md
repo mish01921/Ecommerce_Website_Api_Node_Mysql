@@ -4,6 +4,7 @@ This repo is intended for an online store, selling Laptops. It's a good start fo
 
 
 ## For Begining 
+- Download **node js** then install on your computer Download and install **git** on your computer to submit the project in **git hub**
 - Clone this repo https://github.com/mish01921/login_register_MySql.git in your terminal(mac,linux or windows)
 - After cloning **npm install** for installing all packeges
 - For start **nodemon server.js**
@@ -35,6 +36,14 @@ Here I've used the **.env** file so I can hide my important information that oth
 - Middleware(for token verify)
 - models
 - routers
+
+
+## Documentation
+
+[Node js](https://nodejs.org/en/)
+[express](https://expressjs.com/)
+[Mysql](https://www.mysql.com/)
+[JWT](https://jwt.io/)
 
 
 ## Authors
