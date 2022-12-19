@@ -1,4 +1,4 @@
-import Users from "../model/UserModel.js";
+import Users from "../models/UserModel.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
@@ -72,7 +72,7 @@ export const Login = async(req,res) => {
             httpOnly: true,
             maxAge: 24 * 60 * 60 * 1000
         });
-        res.json({ name,surname,accessToken })
+        res.json({userId,name,surname,email,accessToken })
     } catch (error) {
         res.status(404).json({msg: "Email or Password  not found! "})
     }
