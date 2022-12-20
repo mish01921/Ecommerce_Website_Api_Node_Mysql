@@ -3,11 +3,11 @@ This repo is intended for an online store, selling Laptops. It's a good start fo
 
 
 
-## For Begining 
-- Download **node js** then install on your computer Download and install **git** on your computer to submit the project in **git hub**
+## For Beginning 
+- Download NodeJS then install onto your computer and install git onto your computer
 - Clone this repo https://github.com/mish01921/login_register_MySql.git in your terminal(mac,linux or windows)
 - After cloning **npm install** for installing all packeges
-- For start **nodemon server.js**
+- To start **nodemon server.js**
 
 ## Backend
 - Node js
@@ -26,14 +26,14 @@ This repo is intended for an online store, selling Laptops. It's a good start fo
 
 
 # Important information
-Here I've used the **.env** file so I can hide my important information that others shouldn't see (you can do the same). Here I used **sequelize** to connect the database to the project. **Bcrypt** to keep the passwords secure (so that they don't end up in plaintext in the database).**JWT** provides a secure front-end connection. **Cors** makes contact with the front. **Multer** allows you to store images in a database.
+Here I've used the **.env** file so I can hide my important information that others shouldn't see (you can do the same). Here I used **sequelize** to connect the database to the project.**Bcrypt**(for hashing passwords).**JWT** (for authentication and authorization). **Cors** (to connected to the frontend via http). **Multer** allows you to store images in a server.
 
 ## Main Folders
 
 - config (for database)
 - controllers
 - images
-- Middleware(for token verify)
+- Middleware(for token verification
 - models
 - routers
 
