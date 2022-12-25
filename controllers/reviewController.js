@@ -13,7 +13,7 @@ export const addReview = async (req, res) => {
     }
 
     const review = await Review.create(data)
-    res.status(200).send(review)
+    res.status(200).json(review)
 
 }
 
@@ -22,6 +22,6 @@ export const addReview = async (req, res) => {
 export const getAllReviews = async (req, res) => {
 
     const reviews = await Review.findAll({})
-    res.status(200).send(reviews)
+    res.status(200).json(reviews)
 
 }

@@ -1,11 +1,12 @@
 import express from "express";
-import { upload, addProduct, getAllProducts, getPublishedProduct, getProductReviews, getOneProduct, updateProduct, deleteProduct } from "../controllers/productController.js"
+import { upload,addProduct, getAllProducts, getPublishedProduct, getProductReviews, getOneProduct, updateProduct, deleteProduct } from "../controllers/productController.js"
+
 import { getAllReviews, addReview } from "../controllers/reviewController.js";
 
 // router
 const ProductRouter = express.Router();
 // use routers
-ProductRouter.post('/addProduct', upload , addProduct)
+ProductRouter.post('/addProduct',upload,addProduct)
 ProductRouter.get('/allProducts', getAllProducts)
 ProductRouter.get('/published', getPublishedProduct)
 // Review Url and Controller

@@ -1,5 +1,4 @@
 import Product from "../models/productModel.js";
-// import { extname } from "path";
 import path from "path"
 import multer from 'multer';
 
@@ -7,7 +6,7 @@ import multer from 'multer';
 export const addProduct = async (req, res) => {
 
     let info = {
-        imgUrl: req.file.path,
+        imgUrl: req.body.imgUrl,
         title: req.body.title,
         shortDescription: req.body.shortDescription,
         description: req.body.description,
@@ -17,7 +16,7 @@ export const addProduct = async (req, res) => {
     }
 
     const product = await Product.create(info)
-    res.status(200).send(product)
+    res.status(200).json(product)
     console.log(product)
 }
 
@@ -25,7 +24,7 @@ export const addProduct = async (req, res) => {
 export const getAllProducts = async (req, res) => {
 
     let products = await Product.findAll({})
-    res.status(200).send(products)
+    res.status(200).json(products)
 }
 //get single product
 
@@ -33,41 +32,32 @@ export const getOneProduct = async (req, res) => {
 
     let id = req.params.id
     let product = await Product.findOne({ where: { id: id }})
-    res.status(200).send(product)
+    res.status(200).json(product)
 }
 // 4. update Product
 
 export const updateProduct = async (req, res) => {
-
     let id = req.params.id
-
     const product = await Product.update(req.body, { where: { id: id }})
-
-    res.status(200).send(product)
-   
-
+    res.status(200).json(product)
 }
 
 //delete product by id
 
 export const deleteProduct = async (req, res) => {
-
     let id = req.params.id
     await Product.destroy({ where: { id: id }} )
-    res.status(200).send('Product is deleted !')
-
+    res.status(200).json('Product is deleted !')
 }
 
 // get published product
 
 export const getPublishedProduct = async (req, res) => {
     const products =  await Product.findAll({ where: { published: true }})
-    res.status(200).send(products)
-
+    res.status(200).json(products)
 }
 
 // connect one to many relation Product and Reviews
-
 export const getProductReviews =  async (req, res) => {
     const id = req.params.id
       const data = await Product.findOne({
@@ -77,31 +67,28 @@ export const getProductReviews =  async (req, res) => {
         }],
         where: { id: id }
     })
-    res.status(200).send(data)
+    res.status(200).json(data)
 }
 
 //upload img with muler
 const storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        cb(null, 'Images')
-    },
-    filename: (req, file, cb) => {
-        cb(null, Date.now() + path.extname(file.originalname))
+    destination: "./Images",
+    filename: (req, file, cb)=> {
+     return cb(null,`${file.fieldname}_${Date.now()}${path.extname(file.originalname)}`)
     }
-})
+  });
 
-export const upload = multer({
+ export const upload = multer({
     storage: storage,
-    limits: { fileSize: '1000000' },
-    fileFilter: (req, file, cb) => {
-        const fileTypes = /jpeg|jpg|png|gif/
-        const mimeType = fileTypes.test(file.mimetype)  
-        const extname = fileTypes.test(path.extname(file.originalname))
-
-        if(mimeType && extname) {
-            return cb(null, true)
-        }
-        cb('Give proper files formate to upload')
-    }
-}).single('imgUrl')
+    limits: {
+      fileSize: 1000000
+    },
+    fileFilter(req, file, cb) {
+      if (!file.originalname.match(/\.(png|jpg|jpeg)$/)) { 
+         // upload only png and jpg format
+         return cb(new Error('Please upload a Image'))
+       }
+     cb(undefined, true)
+  }
+}).single('imgUrl') 
 

@@ -18,13 +18,15 @@ try {
 }catch(error) {
     console.error(error)
 }
+
+app.use(express.static('Images'));
 app.use(cors())
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(router);
 app.use(ProductRouter);
-app.use('/Images', express.static('Images'))
+
 
 app.listen(PORT, () => {
     console.log(`Server listening ${PORT}`)
