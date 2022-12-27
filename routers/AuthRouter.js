@@ -7,7 +7,6 @@ import { check, validationResult} from "express-validator";
 
 
 const router = express.Router();
-
 router.get("/users", verifyToken, getUsers);
 router.post("/signup",
 [
@@ -67,3 +66,4 @@ router.get("/token", refreshToken);
 router.delete("/logout", Logout);
 
 export default router;
+
